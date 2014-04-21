@@ -75,15 +75,8 @@ module.exports = function (gulp) {
                 .pipe(htmlmin())
                 .pipe(gulp.dest('dist'));
         });
-        gulp.task('build-scripts-js', function () {
-            return gulp.src('src/scripts/**/[!_]*.js')
-                .pipe(plumber())
-                .pipe(filter('**/*.traceur.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('dist'));
-        });
         gulp.task('build-scripts-traceur', function () {
-            return gulp.src('src/scripts/**/[!_]*.traceur.js')
+            return gulp.src('src/scripts/**/[!_]*.js')
                 .pipe(plumber())
                 .pipe(traceur({sourceMaps: true}))
                 .pipe(browserify({transform: ['es6ify']}))
