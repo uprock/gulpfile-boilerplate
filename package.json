@@ -1,11 +1,11 @@
 {
-    "name": "gulpfile-boiler",
+    "name": "gulpfile-boilerplate",
     "version": "0.1.1",
-    "description": "Personal configurable gulp config that can be used in most of projects",
+    "description": "Corporate configurable gulp config that can be used in most of projects",
     "main": "gulpfile.js",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Jabher/jabher-gulpfile"
+        "url": "https://github.com/Uprock/gulpfile-boilerplate"
     },
     "keywords": [
         "gulp",
@@ -22,9 +22,9 @@
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Jabher/jabher-gulpfile/issues"
+        "url": "https://github.com/Uprock/gulpfile-boilerplate/issues"
     },
-    "homepage": "https://github.com/Jabher/jabher-gulpfile",
+    "homepage": "https://github.com/Uprock/gulpfile-boilerplate",
     "dependencies": {
         "fs-extra": "^0.8.1",
         "env": "https://github.com/Jabher/node-env/tarball/master",
