@@ -38,7 +38,7 @@ module.exports = function (gulp) {
     });
 
     if (ENV.isProduction) { //strict mode && minification
-
+        gulp.task('default', ['build']);
 
         gulp.task('build-styles-stylus', function () {
             return gulp.src('src/styles/**/[!_]*.styl')
@@ -90,7 +90,7 @@ module.exports = function (gulp) {
 
 
     } else {
-
+        gulp.task('default', ['dev']);
 
         gulp.task('build-styles-stylus', function () {
             return gulp.src('src/styles/**/[!_]*.styl')
