@@ -37,15 +37,8 @@ module.exports = function (gulp) {
         gulp.watch(['src/**/*', 'src/*'], ['build']);
     });
 
-    gulp.task('build', ['build-styles', 'build-templates', 'build-scripts', 'build-images', 'build-assets']);
-
-    gulp.task('build-styles', ['build-styles-stylus', 'build-styles-css']);
-    gulp.task('build-templates', ['build-templates-jade', 'build-templates-html']);
-    gulp.task('build-scripts', ['build-scripts-traceur']);
-    gulp.task('build-images', ['build-images-common']);
-    gulp.task('build-assets', ['build-assets-all']);
     if (ENV.isProduction) { //strict mode && minification
-
+        gulp.task('default', ['build']);
 
         gulp.task('build-styles-stylus', function () {
             return gulp.src('src/styles/**/[!_]*.styl')
@@ -75,15 +68,8 @@ module.exports = function (gulp) {
                 .pipe(htmlmin())
                 .pipe(gulp.dest('dist'));
         });
-        gulp.task('build-scripts-js', function () {
-            return gulp.src('src/scripts/**/[!_]*.js')
-                .pipe(plumber())
-                .pipe(filter('**/*.traceur.js'))
-                .pipe(uglify())
-                .pipe(gulp.dest('dist'));
-        });
         gulp.task('build-scripts-traceur', function () {
-            return gulp.src('src/scripts/**/[!_]*.traceur.js')
+            return gulp.src('src/scripts/**/[!_]*.js')
                 .pipe(plumber())
                 .pipe(traceur({sourceMaps: true}))
                 .pipe(browserify({transform: ['es6ify']}))
@@ -104,7 +90,7 @@ module.exports = function (gulp) {
 
 
     } else {
-
+        gulp.task('default', ['dev']);
 
         gulp.task('build-styles-stylus', function () {
             return gulp.src('src/styles/**/[!_]*.styl')
@@ -163,4 +149,34 @@ module.exports = function (gulp) {
             console.log("----------ERROR MESSAGE END----------\n".bold.red.underline);
         });
     }
+
+    function eachRecursive(obj, cb, path) {
+        path = path || [];
+        try {
+            Object.getOwnPropertyNames(obj).forEach(function (key) {
+                try {
+                    cb(path.concat(key), obj[key]);
+                } catch (e) {
+                }
+                eachRecursive(obj[key], cb, path.concat(key));
+            });
+        } catch (e) {
+        }
+    }
+
+    var tree = {};
+    Object.getOwnPropertyNames(gulp.tasks).forEach(function (task) {
+        var taskPath = task.split('-'), taskPathPath, treePart = tree;
+        while (taskPathPart = taskPath.shift()) {
+            treePart = treePart[taskPathPart] = treePart[taskPathPart] || {};
+        }
+
+    });
+    eachRecursive(tree, function (path, object) {
+        if (!gulp.tasks[path.join('-')]) {
+            gulp.task(path.join('-'), Object.getOwnPropertyNames(object).map(function (key) {
+                return path.concat(key).join('-')
+            }))
+        }
+    });
 };
