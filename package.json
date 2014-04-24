@@ -7,9 +7,6 @@
         "type": "git",
         "url": "https://github.com/Uprock/gulpfile-boilerplate"
     },
-    "scripts": {
-        "postinstall": "echo \"require('gulpfile-boilerplate')(require('gulp'));\" > gulpfile.js"  
-    },
     "keywords": [
         "gulp",
         "gulpfile",
